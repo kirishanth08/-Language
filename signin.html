@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - VoxAcademy</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+
+    <!-- Anti-Splash/Theme Persistence -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                var dir = localStorage.getItem('dir');
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.remove('dark');
+                }
+                if (dir === 'rtl') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                }
+            } catch (e) { }
+        })();
+    </script>
+
+    <!-- Tailwind & Plugins -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#1E40AF', secondary: '#9333EA', dark: '#0f172a', light: '#f8fafc' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light dark:bg-dark text-slate-800 dark:text-slate-200 transition-colors duration-300 antialiased font-sans min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden py-16 px-4 sm:px-6">
+
+    <!-- Background -->
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop"
+            class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/85 backdrop-blur-md"></div>
+    </div>
+
+    <canvas id="hero-canvas" class="absolute inset-0 z-10 pointer-events-none opacity-40"></canvas>
+
+    <!-- Glass Card Container -->
+    <div class="relative z-20 w-full max-w-md my-auto fade-in-up">
+        <!-- Responsive Header Bar (Return Home + Theme/RTL Controls) -->
+        <div class="flex justify-between items-center mb-6 px-2">
+            <a href="index.html"
+                class="flex items-center gap-2 text-white/80 hover:text-white transition-colors font-medium text-sm sm:text-base">
+                <i class="ph-bold ph-arrow-left text-lg"></i> Return Home
+            </a>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleTheme()"
+                    class="p-2 rounded-full bg-white/10 text-white hover:bg-white/25 transition-all duration-300 backdrop-blur-md shadow-md cursor-pointer"
+                    aria-label="Toggle Theme">
+                    <i class="ph ph-sun hidden dark:block text-base pointer-events-none"></i>
+                    <i class="ph ph-moon block dark:hidden text-base pointer-events-none"></i>
+                </button>
+                <button onclick="toggleDir()" id="dir-btn"
+                    class="px-3 py-1 rounded-full bg-white/10 text-white hover:bg-white/25 transition-all duration-300 backdrop-blur-md font-medium text-xs shadow-md cursor-pointer"
+                    aria-label="Toggle Direction">
+                    LTR
+                </button>
+            </div>
+        </div>
+
+        <div
+            class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border border-white/40 dark:border-slate-700/60 rounded-[2rem] p-6 sm:p-10 shadow-2xl">
+            <div class="text-center mb-8">
+                <!-- Logo Clickable to Home -->
+                <a href="index.html" class="inline-block group">
+                    <div
+                        class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-2xl mb-4 shadow-lg shadow-primary/30 group-hover:scale-105 transition-transform">
+                        V</div>
+                </a>
+                <h2 class="text-3xl font-display font-bold text-slate-900 dark:text-white tracking-tight">Welcome back
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm">Sign in to access your dashboard</p>
+            </div>
+
+            <div class="space-y-3 mb-8">
+                <a href="https://google.com"
+                    class="flex items-center justify-center gap-3 w-full py-3.5 px-4 border border-slate-200 dark:border-slate-700 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-200 font-medium shadow-sm hover:scale-[1.01]">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
+                    Continue with Google
+                </a>
+                <a href="https://apple.com"
+                    class="flex items-center justify-center gap-3 w-full py-3.5 px-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all font-medium shadow-sm hover:scale-[1.01]">
+                    <i class="ph-fill ph-apple-logo text-xl"></i>
+                    Continue with Apple
+                </a>
+            </div>
+
+            <div class="relative flex items-center justify-center mb-8">
+                <div class="border-t border-slate-200 dark:border-slate-800 w-full"></div>
+                <div
+                    class="bg-white/90 dark:bg-slate-900/90 px-4 text-xs font-semibold text-slate-400 dark:text-slate-500 absolute uppercase tracking-wider">
+                    or sign in with email</div>
+            </div>
+
+            <form action="#" class="space-y-5">
+                <div>
+                    <label
+                        class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Email
+                        Address</label>
+                    <input type="email"
+                        class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-primary text-slate-900 dark:text-white transition-colors text-sm"
+                        placeholder="name@example.com" required>
+                </div>
+                <div>
+                    <label
+                        class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Password</label>
+                    <input type="password"
+                        class="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-primary text-slate-900 dark:text-white transition-colors text-sm"
+                        placeholder="••••••••" required>
+                </div>
+
+                <div class="flex flex-wrap justify-between items-center text-sm pt-1 gap-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary w-4 h-4">
+                        <span class="text-slate-600 dark:text-slate-400">Remember me</span>
+                    </label>
+                    <a href="#" class="text-primary dark:text-blue-400 font-semibold hover:underline">Forgot
+                        password?</a>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold hover:shadow-lg hover:shadow-primary/30 transform hover:-translate-y-0.5 transition-all duration-300 mt-2">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="text-center mt-8 text-slate-600 dark:text-slate-400 text-sm">
+                Don't have an account? <a href="signup.html"
+                    class="text-primary dark:text-blue-400 font-bold hover:underline">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Independent Bulletproof Toggles -->
+    <script>
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleDir() {
+            const currentDir = document.documentElement.getAttribute('dir') || 'ltr';
+            const newDir = currentDir === 'rtl' ? 'ltr' : 'rtl';
+            document.documentElement.setAttribute('dir', newDir);
+            localStorage.setItem('dir', newDir);
+            const btn = document.getElementById('dir-btn');
+            if (btn) btn.innerText = newDir.toUpperCase();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.querySelector('.fade-in-up');
+            if (card) setTimeout(() => card.classList.add('visible'), 100);
+
+            const savedDir = localStorage.getItem('dir') || 'ltr';
+            document.documentElement.setAttribute('dir', savedDir);
+            const btn = document.getElementById('dir-btn');
+            if (btn) btn.innerText = savedDir.toUpperCase();
+        });
+    </script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

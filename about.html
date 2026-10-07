@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - VoxAcademy</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+
+    <!-- Anti-Splash/Theme Persistence -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                var dir = localStorage.getItem('dir');
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.remove('dark');
+                }
+                if (dir === 'rtl') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                }
+            } catch (e) { }
+        })();
+    </script>
+
+    <!-- Tailwind & Plugins -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        secondary: '#9333EA',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #1E40AF;
+            transition: width 0.3s ease-out;
+        }
+
+        .dark .nav-link::after {
+            background-color: #60A5FA;
+        }
+
+        .nav-link:hover::after,
+        .active-link::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light dark:bg-dark text-slate-800 dark:text-slate-200 transition-colors duration-300 antialiased overflow-x-hidden font-sans">
+
+    <!-- Fixed Navbar with Scroll Effect -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="v-navbar">
+        <div id="v-nav-bg"
+            class="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border-b border-white/20 dark:border-slate-800/50 transition-all duration-300">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-8 relative z-10">
+            <div class="flex justify-between items-center h-20 xl:h-24">
+                <!-- Left: Logo -->
+                <div class="flex-shrink-0 flex items-center mr-2 lg:mr-3 xl:mr-6">
+                    <a href="index.html" class="flex items-center gap-2 lg:gap-2.5 xl:gap-3 group">
+                        <div
+                            class="w-10 h-10 xl:w-12 xl:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl xl:text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg shadow-primary/20">
+                            V
+                        </div>
+                        <span class="font-display font-bold text-xl xl:text-2xl tracking-tight">Vox<span
+                                class="text-primary dark:text-blue-400">Academy</span></span>
+                    </a>
+                </div>
+
+                <!-- Center: Dropdown & Links -->
+                <div class="hidden lg:flex items-center space-x-2 xl:space-x-6 rtl:space-x-reverse text-sm xl:text-base">
+                    <div class="relative group h-20 xl:h-24 flex items-center">
+                        <button
+                            class="flex items-center gap-1 font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">
+                            <span>Home</span>
+                            <i class="ph ph-caret-down text-xs xl:text-sm transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div
+                            class="absolute top-[68px] xl:top-[80px] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 overflow-hidden">
+                            <a href="index.html"
+                                class="block px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 font-medium">Home
+                                1 (Classic)</a>
+                            <a href="home2.html"
+                                class="block px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 font-medium">Home
+                                2 (Creative)</a>
+                        </div>
+                    </div>
+                    <a href="about.html"
+                        class="font-bold text-primary dark:text-blue-400 transition-colors nav-link active-link whitespace-nowrap">About</a>
+                    <a href="programs.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Programs</a>
+                    <a href="trainers.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Trainers</a>
+                    <a href="success-stories.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Success
+                        Stories</a>
+                    <a href="contact.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Contact</a>
+                </div>
+
+                <!-- Right: Controls & Auth -->
+                <div class="hidden lg:flex items-center space-x-2 xl:space-x-4 rtl:space-x-reverse ml-3 xl:ml-6">
+                    <div
+                        class="flex items-center space-x-1.5 xl:space-x-2 rtl:space-x-reverse border-r border-slate-200 dark:border-slate-700 pr-2 xl:pr-4 rtl:pr-0 rtl:pl-2 rtl:xl:pl-4 rtl:border-r-0 rtl:border-l">
+                        <button id="v-theme-toggle"
+                            class="h-9 w-9 xl:h-10 xl:w-10 flex items-center justify-center rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105 group"
+                            aria-label="Toggle Theme">
+                            <i
+                                class="ph ph-sun hidden dark:block text-lg xl:text-xl group-hover:text-yellow-400 transition-colors"></i>
+                            <i
+                                class="ph ph-moon block dark:hidden text-lg xl:text-xl group-hover:text-primary transition-colors"></i>
+                        </button>
+                        <button id="v-dir-toggle"
+                            class="h-9 px-2.5 xl:h-10 xl:px-3.5 flex items-center justify-center rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105"
+                            aria-label="Toggle Direction">
+                            LTR
+                        </button>
+                    </div>
+                    <div class="flex items-center">
+                        <a href="signup.html"
+                            class="h-9 px-3.5 xl:h-10 xl:px-7 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-xs xl:text-base hover:shadow-xl hover:shadow-slate-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center whitespace-nowrap">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center gap-2">
+                    <button id="v-mobile-btn"
+                        class="p-2 text-2xl sm:text-3xl hover:text-primary transition-colors focus:outline-none rounded-lg hover:bg-slate-100 dark:bg-slate-800">
+                        <i class="ph ph-list pointer-events-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="v-mobile-menu"
+            class="hidden fixed top-24 left-0 w-full h-[calc(100vh-6rem)] bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shadow-2xl overflow-y-auto transition-all z-[90] pb-12">
+            <div class="flex flex-col px-6 py-4">
+                <a href="index.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:text-primary">Home
+                    1</a>
+                <a href="home2.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:text-primary">Home
+                    2</a>
+                <a href="about.html"
+                    class="py-4 font-bold text-primary border-b border-slate-100 dark:border-slate-800">About</a>
+                <a href="programs.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:text-primary">Programs</a>
+                <a href="trainers.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:text-primary">Trainers</a>
+                <a href="success-stories.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:text-primary">Success
+                    Stories</a>
+                <a href="contact.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:text-primary">Contact</a>
+
+                <!-- Mobile Settings -->
+                <div class="py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                    <span class="font-medium text-slate-500">Settings</span>
+                    <div class="flex gap-3">
+                        <button id="v-mobile-theme-toggle"
+                            class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                            aria-label="Toggle Theme">
+                            <i class="ph ph-sun hidden dark:block text-lg text-yellow-400 pointer-events-none"></i>
+                            <i class="ph ph-moon block dark:hidden text-lg text-primary pointer-events-none"></i>
+                        </button>
+                        <button id="v-mobile-dir-toggle"
+                            class="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 font-medium text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            LTR
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-6 flex flex-col gap-4">
+                    <a href="signin.html"
+                        class="py-3.5 text-center font-medium border border-slate-200 dark:border-slate-700 rounded-full transition-colors">Sign
+                        In</a>
+                    <a href="signup.html"
+                        class="py-3.5 text-center font-medium bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-lg">Get
+                        Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: Hero Section -->
+    <section class="relative pt-40 pb-32 bg-slate-900 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2000&auto=format&fit=crop"
+                alt="VoxAcademy Campus" class="w-full h-full object-cover opacity-25 mix-blend-luminosity">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/90"></div>
+            <!-- Glow Effects -->
+            <div
+                class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/40 rounded-full blur-[120px] mix-blend-screen pointer-events-none">
+            </div>
+            <div
+                class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/30 rounded-full blur-[120px] mix-blend-screen pointer-events-none">
+            </div>
+        </div>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
+            <div
+                class="inline-block px-5 py-2 border border-white/20 rounded-full text-blue-300 font-semibold tracking-wider text-xs mb-8 bg-white/5 backdrop-blur-md uppercase">
+                About VoxAcademy
+            </div>
+            <h1 class="text-5xl md:text-7xl font-display font-black text-white mb-8 tracking-tight">
+                Crafting Voices That <br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Shape the
+                    World</span>
+            </h1>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+                Founded on the belief that eloquence is not an accident of birth but a learnable science, VoxAcademy has
+                trained thousands of champions, CEOs, and visionary changemakers.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Our Mission & Vision -->
+    <section class="py-24 bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <span
+                        class="text-primary dark:text-blue-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Who
+                        We Are</span>
+                    <h2
+                        class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                        We transform fear into rhetorical power.
+                    </h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+                        Public speaking is widely cited as humanity's most common fear. Yet, it remains the single
+                        greatest accelerator of career mobility, leadership influence, and social impact.
+                    </p>
+                    <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+                        At VoxAcademy, we combine classical rhetoric with cutting-edge cognitive psychology and stagecraft.
+                        Our alumni do not merely memorize speeches—they learn how to think on their feet, defend ideas
+                        under pressure, and inspire diverse audiences.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 text-primary dark:text-blue-400 flex items-center justify-center font-bold text-xl">
+                                <i class="ph-bold ph-check"></i>
+                            </div>
+                            <span class="font-semibold text-slate-900 dark:text-white">World Champion Coaches</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/40 text-secondary dark:text-purple-400 flex items-center justify-center font-bold text-xl">
+                                <i class="ph-bold ph-check"></i>
+                            </div>
+                            <span class="font-semibold text-slate-900 dark:text-white">Cohort & 1-on-1 Labs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative fade-in-up" style="transition-delay: 150ms;">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-tr from-primary to-secondary rounded-3xl opacity-20 blur-xl">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200&auto=format&fit=crop"
+                        alt="Mentorship Session" class="relative rounded-3xl shadow-2xl object-cover h-[500px] w-full">
+                    <div
+                        class="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-white/20 dark:border-slate-700 shadow-xl">
+                        <p class="italic text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+                            "The purpose of rhetoric is not to triumph over an opponent, but to reveal truth with clarity
+                            and grace."
+                        </p>
+                        <span class="block mt-2 font-bold text-xs uppercase tracking-wider text-primary dark:text-blue-400">
+                            — The VoxAcademy Creed
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: The 4 Core Pillars -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <span
+                    class="text-primary dark:text-blue-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Our
+                    Pedagogy</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-4">The Four
+                    Pillars</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Every curriculum at VoxAcademy
+                    is anchored in four developmental cornerstones.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pillar 1 -->
+                <div
+                    class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl sm:rounded-3xl min-w-0 border border-slate-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 fade-in-up hover:-translate-y-1">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 text-primary dark:text-blue-400 flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-chat-circle-dots"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Rhetorical Architecture</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Structuring ideas with MEAL paragraphing, cognitive hooks, and the Hero's Journey so every word
+                        lands with precision.
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl sm:rounded-3xl min-w-0 border border-slate-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 fade-in-up hover:-translate-y-1"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/30 text-secondary dark:text-purple-400 flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-scales"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Critical Reasoning</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Deconstructing fallacies, weighing competing trade-offs under time constraints, and building
+                        unbreakable cases.
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl sm:rounded-3xl min-w-0 border border-slate-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 fade-in-up hover:-translate-y-1"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-user-focus"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Executive Presence</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Commanding the room with micro-expression awareness, vocal modulation, physical staging, and
+                        calm poise.
+                    </p>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl sm:rounded-3xl min-w-0 border border-slate-100 dark:border-slate-700 shadow-md hover:shadow-xl transition-all duration-300 fade-in-up hover:-translate-y-1"
+                    style="transition-delay: 300ms;">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center text-3xl mb-6">
+                        <i class="ph-fill ph-globe-hemisphere-west"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Global Adaptability</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Communicating seamlessly across cross-cultural audiences, boardrooms, parliamentary chambers, and
+                        virtual stages.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Impact by the Numbers -->
+    <section class="py-20 bg-primary text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-90"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="fade-in-up">
+                    <div class="text-4xl md:text-6xl font-display font-extrabold mb-2 stat-counter" data-target="5000"
+                        data-suffix="+">5,000+</div>
+                    <p class="text-blue-100 text-sm md:text-base font-medium">Graduates Worldwide</p>
+                </div>
+                <div class="fade-in-up" style="transition-delay: 100ms;">
+                    <div class="text-4xl md:text-6xl font-display font-extrabold mb-2 stat-counter" data-target="45"
+                        data-suffix="+">45+</div>
+                    <p class="text-blue-100 text-sm md:text-base font-medium">Debate Championships</p>
+                </div>
+                <div class="fade-in-up" style="transition-delay: 200ms;">
+                    <div class="text-4xl md:text-6xl font-display font-extrabold mb-2 stat-counter" data-target="98"
+                        data-suffix="%">98%</div>
+                    <p class="text-blue-100 text-sm md:text-base font-medium">Confidence Rating</p>
+                </div>
+                <div class="fade-in-up" style="transition-delay: 300ms;">
+                    <div class="text-4xl md:text-6xl font-display font-extrabold mb-2 stat-counter" data-target="12"
+                        data-suffix="+">12+</div>
+                    <p class="text-blue-100 text-sm md:text-base font-medium">Years of Excellence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CTA -->
+    <section class="py-24 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-6">Ready to Find
+                Your Voice?</h2>
+            <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Join our next cohort or schedule a private diagnostic session with one of our master coaches.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="programs.html"
+                    class="w-full sm:w-auto px-8 py-4 rounded-full bg-primary hover:bg-blue-800 text-white font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    Explore Signature Programs
+                </a>
+                <a href="contact.html"
+                    class="w-full sm:w-auto px-8 py-4 rounded-full border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold text-lg transition-all duration-300">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="index.html" class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl">
+                            V
+                        </div>
+                        <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">Vox<span
+                                class="text-primary dark:text-blue-400">Academy</span></span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                        Empowering voices, accelerating leadership, and training the next generation of global champions.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="about.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">About</a>
+                        </li>
+                        <li><a href="programs.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Programs</a>
+                        </li>
+                        <li><a href="trainers.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Trainers</a>
+                        </li>
+                        <li><a href="success-stories.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Success
+                                Stories</a></li>
+                        <li><a href="contact.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Programs</h4>
+                    <ul class="space-y-3">
+                        <li><a href="programs.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Public
+                                Speaking Mastery</a></li>
+                        <li><a href="programs.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Competitive
+                                Debate</a></li>
+                        <li><a href="programs.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">Interview
+                                Skills Workshop</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Contact</h4>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-2">500 5th Avenue, Suite 2800</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">New York, NY 10110</p>
+                    <p class="text-primary dark:text-blue-400 font-semibold text-sm">admissions@voxacademy.edu</p>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 dark:text-slate-400 text-sm">© 2026 VoxAcademy. All rights reserved.</p>
+                <div class="flex gap-6 text-sm text-slate-500 dark:text-slate-400">
+                    <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu
+            const vMobileBtn = document.getElementById('v-mobile-btn');
+            const vMobileMenu = document.getElementById('v-mobile-menu');
+
+            if (vMobileBtn && vMobileMenu) {
+                vMobileBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    vMobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (vMobileMenu && !vMobileMenu.contains(e.target) && !e.target.closest('#v-mobile-btn')) {
+                    vMobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Theme Toggles
+            const themeToggle = document.getElementById('v-theme-toggle');
+            const mobileThemeToggle = document.getElementById('v-mobile-theme-toggle');
+
+            const handleThemeSwitch = (e) => {
+                e.preventDefault();
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            };
+
+            if (themeToggle) themeToggle.addEventListener('click', handleThemeSwitch);
+            if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', handleThemeSwitch);
+
+            // RTL Toggle
+            const dirToggle = document.getElementById('v-dir-toggle');
+            const mobileDirToggle = document.getElementById('v-mobile-dir-toggle');
+
+            const handleDirSwitch = (e) => {
+                e.preventDefault();
+                const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+                document.documentElement.setAttribute('dir', isRtl ? 'ltr' : 'rtl');
+                localStorage.setItem('dir', isRtl ? 'ltr' : 'rtl');
+                if (dirToggle) dirToggle.innerText = isRtl ? 'LTR' : 'RTL';
+                if (mobileDirToggle) mobileDirToggle.innerText = isRtl ? 'LTR' : 'RTL';
+            };
+
+            if (dirToggle) dirToggle.addEventListener('click', handleDirSwitch);
+            if (mobileDirToggle) mobileDirToggle.addEventListener('click', handleDirSwitch);
+
+            // Scroll Reveal Observer
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            fadeElements.forEach(el => fadeObserver.observe(el));
+
+            // Navbar Scroll Effect
+            window.addEventListener('scroll', () => {
+                const navBg = document.getElementById('v-nav-bg');
+                if (navBg) {
+                    if (window.scrollY > 10) {
+                        navBg.classList.add('bg-white/95', 'dark:bg-slate-900/95', 'shadow-md');
+                        navBg.classList.remove('bg-white/70', 'dark:bg-slate-900/70');
+                    } else {
+                        navBg.classList.remove('bg-white/95', 'dark:bg-slate-900/95', 'shadow-md');
+                        navBg.classList.add('bg-white/70', 'dark:bg-slate-900/70');
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

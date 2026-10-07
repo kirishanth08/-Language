@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoxAcademy - Public Speaking & Debate</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+
+    <!-- Anti-Splash/Theme Persistence -->
+    <script>
+        (function () {
+            try {
+                var theme = localStorage.getItem('theme');
+                var dir = localStorage.getItem('dir');
+                if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                } else {
+                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.remove('dark');
+                }
+                if (dir === 'rtl') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                }
+            } catch (e) { }
+        })();
+    </script>
+
+    <!-- Tailwind & Plugins -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        secondary: '#9333EA',
+                        dark: '#0f172a',
+                        light: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- CSS Fixes for Alignment, 3D Cards, and Smooth Behavior -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Swiper Equal Height Fix */
+        .swiper-wrapper {
+            align-items: stretch;
+        }
+
+        .swiper-slide {
+            height: auto !important;
+        }
+
+        /* 3D Flip Card Fixes */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Premium Nav Link Hover Underline */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #1E40AF;
+            transition: width 0.3s ease-out;
+        }
+
+        .dark .nav-link::after {
+            background-color: #60A5FA;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light dark:bg-dark text-slate-800 dark:text-slate-200 transition-colors duration-300 antialiased overflow-x-hidden font-sans">
+
+    <!-- Fixed Navbar with Scroll Effect -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="v-navbar">
+        <div id="v-nav-bg"
+            class="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border-b border-white/20 dark:border-slate-800/50 transition-all duration-300">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-8 relative z-10">
+            <div class="flex justify-between items-center h-20 xl:h-24">
+                <!-- Left: Logo -->
+                <div class="flex-shrink-0 flex items-center mr-2 lg:mr-3 xl:mr-6">
+                    <a href="index.html" class="flex items-center gap-2 lg:gap-2.5 xl:gap-3 group">
+                        <div
+                            class="w-10 h-10 xl:w-12 xl:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl xl:text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg shadow-primary/20">
+                            V
+                        </div>
+                        <span class="font-display font-bold text-xl xl:text-2xl tracking-tight">Vox<span
+                                class="text-primary dark:text-blue-400">Academy</span></span>
+                    </a>
+                </div>
+
+                <!-- Center: Dropdown & Links -->
+                <div class="hidden lg:flex items-center space-x-2 xl:space-x-6 rtl:space-x-reverse text-sm xl:text-base">
+                    <div class="relative group h-20 xl:h-24 flex items-center">
+                        <button
+                            class="flex items-center gap-1 font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">
+                            <span>Home</span>
+                            <i class="ph ph-caret-down text-xs xl:text-sm transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div
+                            class="absolute top-[68px] xl:top-[80px] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 overflow-hidden">
+                            <a href="index.html"
+                                class="block px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-primary font-medium">Home
+                                1 (Classic)</a>
+                            <a href="home2.html"
+                                class="block px-5 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">Home
+                                2 (Creative)</a>
+                        </div>
+                    </div>
+                    <a href="about.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">About</a>
+                    <a href="programs.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Programs</a>
+                    <a href="trainers.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Trainers</a>
+                    <a href="success-stories.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Success
+                        Stories</a>
+                    <a href="contact.html"
+                        class="font-medium hover:text-primary dark:hover:text-blue-400 transition-colors nav-link whitespace-nowrap">Contact</a>
+                </div>
+
+                <!-- Right: Controls & Auth -->
+                <div class="hidden lg:flex items-center space-x-2 xl:space-x-4 rtl:space-x-reverse ml-3 xl:ml-6">
+                    <div
+                        class="flex items-center space-x-1.5 xl:space-x-2 rtl:space-x-reverse border-r border-slate-200 dark:border-slate-700 pr-2 xl:pr-4 rtl:pr-0 rtl:pl-2 rtl:xl:pl-4 rtl:border-r-0 rtl:border-l">
+                        <button id="v-theme-toggle"
+                            class="h-9 w-9 xl:h-10 xl:w-10 flex items-center justify-center rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105 group"
+                            aria-label="Toggle Theme">
+                            <i
+                                class="ph ph-sun hidden dark:block text-lg xl:text-xl group-hover:text-yellow-400 transition-colors"></i>
+                            <i
+                                class="ph ph-moon block dark:hidden text-lg xl:text-xl group-hover:text-primary transition-colors"></i>
+                        </button>
+                        <button id="v-dir-toggle"
+                            class="h-9 px-2.5 xl:h-10 xl:px-3.5 flex items-center justify-center rounded-xl bg-slate-100/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105"
+                            aria-label="Toggle Direction">
+                            LTR
+                        </button>
+                    </div>
+                    <div class="flex items-center">
+                        <a href="signup.html"
+                            class="h-9 px-3.5 xl:h-10 xl:px-7 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-xs xl:text-base hover:shadow-xl hover:shadow-slate-900/20 dark:hover:shadow-white/20 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center whitespace-nowrap">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button (ISOLATED ID) -->
+                <div class="lg:hidden flex items-center gap-2">
+                    <button id="v-mobile-btn"
+                        class="p-2 text-2xl sm:text-3xl hover:text-primary transition-colors focus:outline-none rounded-lg hover:bg-slate-100 dark:bg-slate-800">
+                        <!-- pointer-events-none prevents the icon from hijacking the click -->
+                        <i class="ph ph-list pointer-events-none"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown (ISOLATED ID, Scrollable) -->
+        <div id="v-mobile-menu"
+            class="hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 shadow-2xl max-h-[calc(100vh-6rem)] overflow-y-auto transition-all z-40">
+            <div class="flex flex-col px-6 py-4">
+                <a href="index.html"
+                    class="py-4 font-medium text-primary border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all">Home
+                    1</a>
+                <a href="home2.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all hover:text-primary">Home
+                    2</a>
+                <a href="about.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all hover:text-primary">About</a>
+                <a href="programs.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all hover:text-primary">Programs</a>
+                <a href="trainers.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all hover:text-primary">Trainers</a>
+                <a href="success-stories.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all hover:text-primary">Success
+                    Stories</a>
+                <a href="contact.html"
+                    class="py-4 font-medium border-b border-slate-100 dark:border-slate-800 hover:pl-2 transition-all hover:text-primary">Contact</a>
+
+                <!-- Mobile Settings -->
+                <div class="py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                    <span class="font-medium text-slate-500">Settings</span>
+                    <div class="flex gap-3">
+                        <button id="v-mobile-theme-toggle"
+                            class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                            aria-label="Toggle Theme">
+                            <i class="ph ph-sun hidden dark:block text-lg text-yellow-400"></i>
+                            <i class="ph ph-moon block dark:hidden text-lg text-primary pointer-events-none"></i>
+                        </button>
+                        <button id="v-mobile-dir-toggle"
+                            class="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 font-medium text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            LTR
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-6 pb-4 flex flex-col gap-4">
+                    <a href="signin.html"
+                        class="py-3.5 text-center font-medium border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors">Sign
+                        In</a>
+                    <a href="signup.html"
+                        class="py-3.5 text-center font-medium bg-primary text-white rounded-xl hover:shadow-lg hover:shadow-primary/30 transition-all hover:-translate-y-0.5">Get
+                        Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop"
+                alt="Public Speaking Workshop" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-slate-900/75 mix-blend-multiply"></div>
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/60 to-slate-900 dark:to-slate-950">
+            </div>
+        </div>
+
+        <!-- Canvas Particles -->
+        <canvas id="hero-canvas" class="absolute inset-0 z-10 pointer-events-none opacity-60"></canvas>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 animate-on-scroll hover:scale-105 transition-transform duration-300">
+                <span
+                    class="flex h-2 w-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_10px_rgba(74,222,128,0.8)]"></span>
+                <span class="text-sm font-medium text-white">Enrollment Open for Fall 2026</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-6 leading-tight animate-on-scroll"
+                style="transition-delay: 100ms;">
+                Master the Art of <br> <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Persuasion</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 animate-on-scroll"
+                style="transition-delay: 200ms;">
+                Elite training in public speaking, competitive debate, and executive communication for the leaders of
+                tomorrow.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-on-scroll"
+                style="transition-delay: 300ms;">
+                <a href="programs.html"
+                    class="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-slate-900 font-bold text-lg hover:bg-blue-50 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    Explore Programs
+                </a>
+                <a href="#video-showcase"
+                    class="w-full sm:w-auto px-8 py-4 rounded-full border-2 border-white/60 hover:border-white bg-slate-900/40 hover:bg-white/10 text-white font-bold text-lg backdrop-blur-md transition-all duration-300 flex items-center justify-center gap-2.5 group hover:scale-105 shadow-lg">
+                    <i
+                        class="ph-fill ph-play-circle text-2xl text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    <span>Watch Showcase</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Mission/About -->
+    <section id="mission" class="py-24 bg-white dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 relative group animate-on-scroll">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-tr from-primary to-secondary rounded-3xl opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1600&auto=format&fit=crop"
+                        alt="Debate coaching"
+                        class="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full transition-transform duration-700 group-hover:scale-[1.02]">
+
+                    <!-- Fix: Overlay Box properly positioned inside the image constraints -->
+                    <div
+                        class="absolute bottom-6 right-6 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md shadow-2xl border border-slate-200 dark:border-slate-700 p-6 rounded-2xl hidden md:block z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white text-2xl shadow-lg shadow-primary/30">
+                                <i class="ph-fill ph-trophy"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400 font-medium">Award Winning</div>
+                                <div class="text-xl font-bold text-slate-900 dark:text-white">Global Champions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 animate-on-scroll" style="transition-delay: 200ms;">
+                    <div
+                        class="text-primary dark:text-blue-400 font-bold tracking-wider uppercase text-sm mb-4 flex items-center gap-2">
+                        <span class="w-8 h-px bg-primary dark:bg-blue-400"></span> Our Philosophy
+                    </div>
+                    <h2
+                        class="text-4xl md:text-5xl font-display font-bold mb-6 text-slate-900 dark:text-white leading-tight">
+                        Words have the power to shape the world.</h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        At VoxAcademy, we don't just teach you how to speak; we teach you how to think, articulate, and
+                        captivate. Our curriculum is designed by world-champion debaters and executive coaches to
+                        transform your communication into your greatest asset.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li
+                            class="flex items-center gap-3 text-slate-700 dark:text-slate-300 hover:translate-x-2 transition-transform duration-300">
+                            <i class="ph-fill ph-check-circle text-primary dark:text-blue-400 text-xl"></i>
+                            <span class="font-medium">Evidence-based curriculum tailored for all levels</span>
+                        </li>
+                        <li
+                            class="flex items-center gap-3 text-slate-700 dark:text-slate-300 hover:translate-x-2 transition-transform duration-300">
+                            <i class="ph-fill ph-check-circle text-primary dark:text-blue-400 text-xl"></i>
+                            <span class="font-medium">1-on-1 personalized feedback from elite coaches</span>
+                        </li>
+                        <li
+                            class="flex items-center gap-3 text-slate-700 dark:text-slate-300 hover:translate-x-2 transition-transform duration-300">
+                            <i class="ph-fill ph-check-circle text-primary dark:text-blue-400 text-xl"></i>
+                            <span class="font-medium">State-of-the-art virtual and physical auditoriums</span>
+                        </li>
+                    </ul>
+                    <a href="about.html"
+                        class="inline-flex items-center gap-2 font-bold text-primary dark:text-blue-400 hover:gap-4 transition-all duration-300">
+                        Read our story <i class="ph-bold ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Scroll-Count Stats -->
+    <section class="py-20 border-y border-slate-100 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-slate-200 dark:divide-slate-800">
+                <div class="text-center px-4 animate-on-scroll hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-5xl font-display font-bold text-slate-900 dark:text-white mb-2"><span
+                            class="stat-counter" data-target="15000" data-suffix="+">0</span></div>
+                    <div class="text-slate-500 dark:text-slate-400 font-medium">Alumni Worldwide</div>
+                </div>
+                <div class="text-center px-4 animate-on-scroll hover:-translate-y-2 transition-transform duration-300"
+                    style="transition-delay: 100ms;">
+                    <div class="text-5xl font-display font-bold text-slate-900 dark:text-white mb-2"><span
+                            class="stat-counter" data-target="120" data-suffix="+">0</span></div>
+                    <div class="text-slate-500 dark:text-slate-400 font-medium">Championship Titles</div>
+                </div>
+                <div class="text-center px-4 animate-on-scroll hover:-translate-y-2 transition-transform duration-300"
+                    style="transition-delay: 200ms;">
+                    <div class="text-5xl font-display font-bold text-slate-900 dark:text-white mb-2"><span
+                            class="stat-counter" data-target="50" data-suffix="+">0</span></div>
+                    <div class="text-slate-500 dark:text-slate-400 font-medium">Elite Coaches</div>
+                </div>
+                <div class="text-center px-4 animate-on-scroll hover:-translate-y-2 transition-transform duration-300"
+                    style="transition-delay: 300ms;">
+                    <div class="text-5xl font-display font-bold text-slate-900 dark:text-white mb-2"><span
+                            class="stat-counter" data-target="99" data-suffix="%">0</span></div>
+                    <div class="text-slate-500 dark:text-slate-400 font-medium">Satisfaction Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Programs Carousel -->
+    <section class="py-24 bg-white dark:bg-slate-950 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 flex justify-between items-end animate-on-scroll">
+            <div class="max-w-2xl">
+                <div class="text-secondary font-bold tracking-wider uppercase text-sm mb-4">Curriculum</div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white">Our Signature
+                    Programs</h2>
+            </div>
+            <div class="hidden md:flex gap-4">
+                <button
+                    class="swiper-prev w-12 h-12 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 hover:scale-110">
+                    <i class="ph-bold ph-arrow-left"></i>
+                </button>
+                <button
+                    class="swiper-next w-12 h-12 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 hover:scale-110">
+                    <i class="ph-bold ph-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-[1400px] mx-auto px-4 animate-on-scroll" style="transition-delay: 200ms;">
+            <div class="swiper programs-swiper pb-16">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div
+                            class="group rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 h-full flex flex-col cursor-pointer">
+                            <div class="h-64 overflow-hidden relative">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors z-10 duration-500">
+                                </div>
+                                <img src="https://images.pexels.com/photos/30836106/pexels-photo-30836106.jpeg"
+                                    alt="Public Speaking"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                <div
+                                    class="absolute top-4 right-4 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
+                                    Beginner to Pro</div>
+                            </div>
+                            <div class="p-8 flex-grow flex flex-col">
+                                <h3
+                                    class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary transition-colors">
+                                    Mastering the Stage</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6 flex-grow">Overcome stage fright,
+                                    command the room with body language, and deliver memorable keynotes.</p>
+                                <a href="programs.html"
+                                    class="inline-flex items-center gap-2 font-bold text-primary dark:text-blue-400 group/btn mt-auto">
+                                    Learn more <i
+                                        class="ph-bold ph-arrow-right group-hover/btn:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div
+                            class="group rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-2xl hover:shadow-secondary/20 hover:-translate-y-2 h-full flex flex-col cursor-pointer">
+                            <div class="h-64 overflow-hidden relative">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors z-10 duration-500">
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Debate"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                <div
+                                    class="absolute top-4 right-4 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-secondary shadow-sm">
+                                    Competitive</div>
+                            </div>
+                            <div class="p-8 flex-grow flex flex-col">
+                                <h3
+                                    class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-secondary transition-colors">
+                                    Competitive Debate</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6 flex-grow">Learn British
+                                    Parliamentary, Policy, and Lincoln-Douglas styles from world champions.</p>
+                                <a href="programs.html"
+                                    class="inline-flex items-center gap-2 font-bold text-secondary group/btn mt-auto">
+                                    Learn more <i
+                                        class="ph-bold ph-arrow-right group-hover/btn:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div
+                            class="group rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 h-full flex flex-col cursor-pointer">
+                            <div class="h-64 overflow-hidden relative">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors z-10 duration-500">
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Executive"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                <div
+                                    class="absolute top-4 right-4 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-green-600 dark:text-green-400 shadow-sm">
+                                    Professionals</div>
+                            </div>
+                            <div class="p-8 flex-grow flex flex-col">
+                                <h3
+                                    class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-green-600 transition-colors">
+                                    Executive Presence</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6 flex-grow">Tailored for C-suite and
+                                    founders to pitch to investors, handle media, and lead teams effectively.</p>
+                                <a href="programs.html"
+                                    class="inline-flex items-center gap-2 font-bold text-green-600 dark:text-green-400 group/btn mt-auto">
+                                    Learn more <i
+                                        class="ph-bold ph-arrow-right group-hover/btn:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <div
+                            class="group rounded-3xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/20 hover:-translate-y-2 h-full flex flex-col cursor-pointer">
+                            <div class="h-64 overflow-hidden relative">
+                                <div
+                                    class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors z-10 duration-500">
+                                </div>
+                                <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1200&auto=format&fit=crop"
+                                    alt="Interview"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                <div
+                                    class="absolute top-4 right-4 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-orange-500 shadow-sm">
+                                    Fast Track</div>
+                            </div>
+                            <div class="p-8 flex-grow flex flex-col">
+                                <h3
+                                    class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-orange-500 transition-colors">
+                                    Interview Mastery</h3>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6 flex-grow">Acheive peak performance in
+                                    high-stakes university and corporate interviews.</p>
+                                <a href="programs.html"
+                                    class="inline-flex items-center gap-2 font-bold text-orange-500 group/btn mt-auto">
+                                    Learn more <i
+                                        class="ph-bold ph-arrow-right group-hover/btn:translate-x-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Premium Video Showcase -->
+    <section id="video-showcase" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-slate-900">
+            <img src="https://images.unsplash.com/photo-1561489413-985b06da5bee?q=80&w=2560&auto=format&fit=crop"
+                alt="Showcase" class="w-full h-full object-cover opacity-30">
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-on-scroll">
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-10">Experience the Vox Difference</h2>
+
+            <div
+                class="relative max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] group cursor-pointer border border-white/10 hover:border-white/30 transition-all duration-500">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600&auto=format&fit=crop"
+                    alt="Video Thumbnail"
+                    class="w-full object-cover aspect-video group-hover:scale-105 transition-transform duration-700">
+                <div
+                    class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <div
+                        class="w-20 h-20 md:w-24 md:h-24 rounded-full glass flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-primary/80 group-hover:shadow-[0_0_40px_rgba(59,130,246,0.8)] transition-all duration-300">
+                        <i class="ph-fill ph-play text-3xl md:text-4xl translate-x-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Trainers 3D Card Grid -->
+    <section class="py-24 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-display font-bold text-slate-900 dark:text-white mb-4">World-Class
+                Trainers</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Learn directly from individuals who
+                have conquered the biggest stages globally.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Trainer 1 -->
+                <div class="group relative perspective-1000 animate-on-scroll cursor-pointer">
+                    <div
+                        class="relative w-full h-[450px] transition-transform duration-700 transform-style-3d group-hover:rotate-y-180 rounded-3xl shadow-lg group-hover:shadow-2xl">
+                        <!-- Front -->
+                        <div
+                            class="absolute inset-0 backface-hidden rounded-3xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                            <!-- Clamped heights perfectly layout the 3D card -->
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+                                alt="Trainer" class="w-full h-[70%] object-cover object-top">
+                            <div class="p-6 h-[30%] flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Elena Rostova</h3>
+                                <p class="text-primary dark:text-blue-400 font-medium text-sm mt-1">WUDC Best Speaker
+                                    2022</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div
+                            class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-slate-900 text-white p-8 flex flex-col justify-center items-center text-center shadow-xl border border-slate-800">
+                            <h3 class="text-2xl font-bold mb-2">Elena Rostova</h3>
+                            <p class="text-blue-400 font-medium mb-6">Head of Debate</p>
+                            <p class="text-slate-300 text-sm mb-8">Oxford graduate, 3x European Champion, and consultant
+                                for Fortune 500 executives on persuasive communication.</p>
+                            <a href="trainers.html"
+                                class="px-6 py-2 rounded-full border border-white/30 hover:bg-white hover:text-slate-900 transition-colors font-medium hover:scale-105">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Trainer 2 -->
+                <div class="group relative perspective-1000 animate-on-scroll cursor-pointer"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="relative w-full h-[450px] transition-transform duration-700 transform-style-3d group-hover:rotate-y-180 rounded-3xl shadow-lg group-hover:shadow-2xl">
+                        <!-- Front -->
+                        <div
+                            class="absolute inset-0 backface-hidden rounded-3xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop"
+                                alt="Trainer" class="w-full h-[70%] object-cover object-top">
+                            <div class="p-6 h-[30%] flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Marcus Sterling</h3>
+                                <p class="text-primary dark:text-blue-400 font-medium text-sm mt-1">TEDx Keynote Coach
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div
+                            class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-slate-900 text-white p-8 flex flex-col justify-center items-center text-center shadow-xl border border-slate-800">
+                            <h3 class="text-2xl font-bold mb-2">Marcus Sterling</h3>
+                            <p class="text-blue-400 font-medium mb-6">Director of Public Speaking</p>
+                            <p class="text-slate-300 text-sm mb-8">Has coached over 50 TEDx speakers. Specializes in
+                                storytelling, emotional connection, and stage presence.</p>
+                            <a href="trainers.html"
+                                class="px-6 py-2 rounded-full border border-white/30 hover:bg-white hover:text-slate-900 transition-colors font-medium hover:scale-105">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Trainer 3 -->
+                <div class="group relative perspective-1000 animate-on-scroll cursor-pointer"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="relative w-full h-[450px] transition-transform duration-700 transform-style-3d group-hover:rotate-y-180 rounded-3xl shadow-lg group-hover:shadow-2xl">
+                        <!-- Front -->
+                        <div
+                            class="absolute inset-0 backface-hidden rounded-3xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop"
+                                alt="Trainer" class="w-full h-[70%] object-cover object-top">
+                            <div class="p-6 h-[30%] flex flex-col justify-center items-center text-center">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Dr. Amara Singh</h3>
+                                <p class="text-primary dark:text-blue-400 font-medium text-sm mt-1">Executive
+                                    Communication</p>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div
+                            class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-slate-900 text-white p-8 flex flex-col justify-center items-center text-center shadow-xl border border-slate-800">
+                            <h3 class="text-2xl font-bold mb-2">Dr. Amara Singh</h3>
+                            <p class="text-blue-400 font-medium mb-6">Executive Coach</p>
+                            <p class="text-slate-300 text-sm mb-8">Ph.D. in Communications. Former political
+                                speechwriter turned corporate communication strategist.</p>
+                            <a href="trainers.html"
+                                class="px-6 py-2 rounded-full border border-white/30 hover:bg-white hover:text-slate-900 transition-colors font-medium hover:scale-105">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <a href="trainers.html"
+                    class="inline-block px-10 py-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold hover:bg-primary hover:text-white dark:hover:bg-primary transition-all hover:scale-105 hover:shadow-lg">See
+                    All Trainers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Success Stories / Testimonials -->
+    <section class="py-24 bg-white dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2
+                class="text-4xl md:text-5xl font-display font-bold text-center text-slate-900 dark:text-white mb-16 animate-on-scroll">
+                Success Stories</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                <!-- Card 1 -->
+                <div
+                    class="h-full flex flex-col bg-slate-50 dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group cursor-default">
+                    <div
+                        class="flex gap-1 text-yellow-400 mb-6 text-xl group-hover:scale-105 transition-transform origin-left">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                            class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="flex-grow text-slate-700 dark:text-slate-300 mb-8 italic line-clamp-4">"The executive
+                        presence program completely transformed how I pitch to investors. I secured $2M in seed funding
+                        just two weeks after completing the course. The ROI is immeasurable."</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                            alt="User"
+                            class="w-12 h-12 rounded-full object-cover group-hover:ring-2 ring-primary transition-all">
+                        <div>
+                            <div
+                                class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                                James C.</div>
+                            <div class="text-sm text-slate-500 dark:text-slate-400">Tech Founder</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="h-full flex flex-col bg-primary text-white p-8 rounded-3xl shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-2 transition-all duration-300 group cursor-default"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="flex gap-1 text-yellow-300 mb-6 text-xl group-hover:scale-105 transition-transform origin-left">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                            class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="flex-grow text-white/90 mb-8 italic text-lg leading-relaxed">"VoxAcademy's debate coaching
+                        took me from a novice to a national finalist in just one year. The rigor, the feedback, and the
+                        community are unmatched anywhere else in the world."</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop"
+                            alt="User"
+                            class="w-12 h-12 rounded-full object-cover border-2 border-white/20 group-hover:border-white transition-all">
+                        <div>
+                            <div class="font-bold">Sarah T.</div>
+                            <div class="text-sm text-blue-200">University Student</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="h-full flex flex-col bg-slate-50 dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 hover:border-primary hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group cursor-default"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="flex gap-1 text-yellow-400 mb-6 text-xl group-hover:scale-105 transition-transform origin-left">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                            class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="flex-grow text-slate-700 dark:text-slate-300 mb-8 italic line-clamp-4">"I used to get
+                        panic attacks before team presentations. Now, I actually look forward to them. The systematic
+                        approach to managing anxiety and structuring thoughts is brilliant."</p>
+                    <div class="flex items-center gap-4 mt-auto">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop"
+                            alt="User"
+                            class="w-12 h-12 rounded-full object-cover group-hover:ring-2 ring-primary transition-all">
+                        <div>
+                            <div
+                                class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                                Priya M.</div>
+                            <div class="text-sm text-slate-500 dark:text-slate-400">Marketing Director</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <a href="success-stories.html"
+                    class="inline-flex items-center gap-2 font-bold text-primary dark:text-blue-400 hover:gap-4 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-300">
+                    Read more success stories <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. CTA -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-primary to-slate-900"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-secondary/30 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center animate-on-scroll">
+            <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Ready to find your voice?</h2>
+            <p class="text-xl text-blue-100 mb-10">Join thousands of leaders who have transformed their communication
+                skills with VoxAcademy.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-5">
+                <a href="signup.html"
+                    class="px-10 py-4 rounded-full bg-white text-primary font-bold text-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300">
+                    Start Your Journey
+                </a>
+                <a href="contact.html"
+                    class="px-10 py-4 rounded-full border border-white/30 text-white font-bold text-lg hover:bg-white/10 hover:border-white transition-all duration-300 hover:scale-105">
+                    Talk to an Advisor
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="index.html" class="flex items-center gap-2 mb-6 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                            V</div>
+                        <span
+                            class="font-display font-bold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">VoxAcademy</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 max-w-md mb-8">Empowering the next generation of
+                        leaders with world-class public speaking and debate training.</p>
+                    <div class="flex gap-4">
+                        <a href="https://twitter.com" target="_blank"
+                            class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 hover:-translate-y-1 hover:shadow-lg transition-all">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank"
+                            class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] hover:-translate-y-1 hover:shadow-lg transition-all">
+                            <i class="ph-fill ph-linkedin-logo text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank"
+                            class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:-translate-y-1 hover:shadow-lg transition-all">
+                            <i class="ph-fill ph-instagram-logo text-xl"></i>
+                        </a>
+                        <a href="https://youtube.com" target="_blank"
+                            class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] hover:-translate-y-1 hover:shadow-lg transition-all">
+                            <i class="ph-fill ph-youtube-logo text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="about.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">About</a>
+                        </li>
+                        <li><a href="programs.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">Programs</a>
+                        </li>
+                        <li><a href="trainers.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">Trainers</a>
+                        </li>
+                        <li><a href="success-stories.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">Success
+                                Stories</a></li>
+                        <li><a href="contact.html"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-6">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">Privacy
+                                Policy</a></li>
+                        <li><a href="#"
+                                class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400 hover:ml-2 transition-all">Terms
+                                of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 dark:text-slate-400 text-sm">© 2026 VoxAcademy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- Inline JavaScript Execution (Replaces conflicting main.js mobile logic) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Safe Mobile Menu Toggle
+            const vMobileBtn = document.getElementById('v-mobile-btn');
+            const vMobileMenu = document.getElementById('v-mobile-menu');
+
+            if (vMobileBtn && vMobileMenu) {
+                vMobileBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Stops any other script from interfering
+                    vMobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 2. Safe Theme Toggles (Bypasses main.js)
+            const themeToggle = document.getElementById('v-theme-toggle');
+            const mobileThemeToggle = document.getElementById('v-mobile-theme-toggle');
+
+            const handleThemeSwitch = () => {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            };
+
+            if (themeToggle) themeToggle.addEventListener('click', handleThemeSwitch);
+            if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', handleThemeSwitch);
+
+            // 3. Safe Direction (LTR/RTL) Toggles (Bypasses main.js)
+            const dirToggle = document.getElementById('v-dir-toggle');
+            const mobileDirToggle = document.getElementById('v-mobile-dir-toggle');
+
+            const handleDirSwitch = () => {
+                const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+                document.documentElement.setAttribute('dir', isRtl ? 'ltr' : 'rtl');
+                localStorage.setItem('dir', isRtl ? 'ltr' : 'rtl');
+                if (dirToggle) dirToggle.innerText = isRtl ? 'LTR' : 'RTL';
+            };
+
+            if (dirToggle) dirToggle.addEventListener('click', handleDirSwitch);
+            if (mobileDirToggle) mobileDirToggle.addEventListener('click', handleDirSwitch);
+
+            // 4. Swiper Carousel Init
+            const swiper = new Swiper('.programs-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                pagination: { el: '.swiper-pagination', clickable: true },
+                navigation: { nextEl: '.swiper-next', prevEl: '.swiper-prev' },
+                breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            });
+
+            // 5. Navbar Scroll Effect (Solid background on scroll for sticky header)
+            window.addEventListener('scroll', () => {
+                const navBg = document.getElementById('v-nav-bg');
+                if (window.scrollY > 10) {
+                    navBg.classList.add('bg-white/95', 'dark:bg-slate-900/95', 'shadow-md');
+                    navBg.classList.remove('bg-white/60', 'dark:bg-slate-900/60');
+                } else {
+                    navBg.classList.remove('bg-white/95', 'dark:bg-slate-900/95', 'shadow-md');
+                    navBg.classList.add('bg-white/60', 'dark:bg-slate-900/60');
+                }
+            });
+
+            // 6. Fix for the Zero Counters Animating dynamically
+            const counters = document.querySelectorAll('.stat-counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = +counter.getAttribute('data-target');
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        let count = 0;
+                        const updateCount = () => {
+                            const increment = target / 80;
+                            count += increment;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count) + suffix;
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target + suffix;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+</body>
+
+</html>
